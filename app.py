@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import requests
 from datetime import datetime, time, timedelta
 
 st.set_page_config(page_title="Athlete Blueprint", layout="wide")
@@ -34,6 +35,7 @@ WORKOUT_END = time(21, 45)
 WATER_GOAL_L = 4.0
 WATER_GOAL_ML = int(WATER_GOAL_L * 1000)
 PLACEHOLDER_IMAGE_URL = "https://placehold.co/640x360?text=Exercise+Guide"
+WGER_API_BASE = "https://wger.de/api/v2"
 
 WORKOUT_DETAILS = {
     "Monday": [
@@ -330,6 +332,33 @@ def loop_day(dt: datetime) -> datetime:
     return dt
 
 
+@st.cache_data(show_spinner=False)
+def get_wger_image(exercise_name: str) -> str:
+    try:
+        response = requests.get(
+            f"{WGER_API_BASE}/exercise/",
+            params={"language": 2, "status": 2, "search": exercise_name},
+            timeout=8,
+        )
+        response.raise_for_status()
+        results = response.json().get("results", [])
+        if not results:
+            return ""
+        exercise_id = results[0]["id"]
+        image_response = requests.get(
+            f"{WGER_API_BASE}/exerciseimage/",
+            params={"exercise": exercise_id, "is_main": True},
+            timeout=8,
+        )
+        image_response.raise_for_status()
+        image_results = image_response.json().get("results", [])
+        if not image_results:
+            return ""
+        return image_results[0].get("image", "")
+    except requests.RequestException:
+        return ""
+
+
 def get_youtube_thumbnail(link: str) -> str:
     if "watch?v=" in link:
         video_id = link.split("watch?v=")[-1].split("&")[0]
@@ -431,7 +460,11 @@ with tab_workout:
                 st.write(exercise["description"])
             if exercise["link"]:
                 st.link_button("Watch Form", exercise["link"])
-            st.image(get_youtube_thumbnail(exercise.get("link", "")), use_column_width=True)
+            wger_image = get_wger_image(exercise.get("name", ""))
+            if wger_image:
+                st.image(wger_image, use_column_width=True)
+            else:
+                st.image(get_youtube_thumbnail(exercise.get("link", "")), use_column_width=True)
             st.divider()
 
     st.caption("Workout Window: 8:45 PM–9:45 PM")
