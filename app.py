@@ -34,30 +34,235 @@ WORKOUT_END = time(21, 45)
 WATER_GOAL_L = 4.0
 WATER_GOAL_ML = int(WATER_GOAL_L * 1000)
 
-YOUTUBE_LINKS = {
-    "Barbell Rows": "https://www.youtube.com/results?search_query=barbell+rows+form",
-    "Lat Pulldowns": "https://www.youtube.com/results?search_query=lat+pulldown+form",
-    "Face Pulls": "https://www.youtube.com/results?search_query=face+pulls+form",
-    "Barbell Curls": "https://www.youtube.com/results?search_query=barbell+curls+form",
-    "Close-Grip Bench Press": "https://www.youtube.com/results?search_query=close+grip+bench+press+form",
-    "Overhead Press": "https://www.youtube.com/results?search_query=overhead+press+form",
-    "Hanging Leg Raises": "https://www.youtube.com/results?search_query=hanging+leg+raises+form",
-    "Bench Press": "https://www.youtube.com/results?search_query=bench+press+form",
-    "Incline Dumbbell Press": "https://www.youtube.com/results?search_query=incline+dumbbell+press+form",
-    "Pull-ups": "https://www.youtube.com/results?search_query=pull+ups+form",
-    "T-Bar Rows": "https://www.youtube.com/results?search_query=t+bar+row+form",
-    "Squats": "https://www.youtube.com/results?search_query=barbell+squat+form",
-    "Romanian Deadlifts": "https://www.youtube.com/results?search_query=romanian+deadlift+form",
-    "Leg Press": "https://www.youtube.com/results?search_query=leg+press+form",
-}
-
-SPLIT = {
-    "Monday": ["Barbell Rows", "Lat Pulldowns", "Face Pulls"],
-    "Tuesday": ["Barbell Curls", "Close-Grip Bench Press"],
-    "Wednesday": ["Overhead Press", "Hanging Leg Raises"],
-    "Thursday": ["Bench Press", "Incline Dumbbell Press"],
-    "Friday": ["Pull-ups", "T-Bar Rows"],
-    "Saturday": ["Squats", "Romanian Deadlifts", "Leg Press"],
+WORKOUT_DETAILS = {
+    "Monday": [
+        {
+            "name": "Barbell Rows (Overhand Grip)",
+            "sets_reps": "4 sets x 8 reps",
+            "description": "Hinge at hips to 45°. Pull bar to lower ribs.",
+            "link": "https://www.youtube.com/watch?v=9efgcAjQe7E",
+        },
+        {
+            "name": "Lat Pulldowns (Wide)",
+            "sets_reps": "3 sets x 12 reps",
+            "description": "Pull with elbows; avoid excessive lean back.",
+            "link": "https://www.youtube.com/watch?v=CAwf7n6Luuc",
+        },
+        {
+            "name": "Single-Arm DB Rows",
+            "sets_reps": "3 sets x 10 reps per side",
+            "description": "One hand on bench for support. Pull DB to hip pocket.",
+            "link": "",
+        },
+        {
+            "name": "Face Pulls",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Pull rope toward forehead; flare elbows out.",
+            "link": "https://www.youtube.com/watch?v=eIq5CB9JfKE",
+        },
+        {
+            "name": "Barbell Shrugs",
+            "sets_reps": "3 sets x 12 reps",
+            "description": "Straight arms; squeeze traps at the top.",
+            "link": "",
+        },
+        {
+            "name": "Hyper-extensions",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Slow, controlled movement to strengthen the lower back.",
+            "link": "",
+        },
+        {
+            "name": "Dead Hangs",
+            "sets_reps": "3 sets to failure",
+            "description": "Hang from a pull-up bar to stretch lats and build grip.",
+            "link": "",
+        },
+    ],
+    "Tuesday": [
+        {
+            "name": "Barbell Curls",
+            "sets_reps": "4 sets x 10 reps",
+            "description": "No swinging; keep elbows pinned to ribs.",
+            "link": "https://www.youtube.com/watch?v=ykJmrZ5v0Oo",
+        },
+        {
+            "name": "Close-Grip Bench Press",
+            "sets_reps": "3 sets x 8 reps",
+            "description": "Hands shoulder-width apart. Focus on tricep drive.",
+            "link": "",
+        },
+        {
+            "name": "Hammer Curls",
+            "sets_reps": "3 sets x 12 reps",
+            "description": "Neutral grip (palms facing each other).",
+            "link": "",
+        },
+        {
+            "name": "Cable Overhead Tricep Extension",
+            "sets_reps": "3 sets x 12 reps",
+            "description": "Use a rope. Extend fully above the head.",
+            "link": "",
+        },
+        {
+            "name": "Preacher Curls",
+            "sets_reps": "3 sets x 12 reps",
+            "description": "Prevents momentum; isolates the bicep peak.",
+            "link": "",
+        },
+        {
+            "name": "Tricep Rope Pushdowns",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Flare the rope at the bottom for maximum contraction.",
+            "link": "",
+        },
+        {
+            "name": "Wrist Curls",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Use a light barbell or dumbbells to build forearms.",
+            "link": "",
+        },
+    ],
+    "Wednesday": [
+        {
+            "name": "Overhead Press (OHP)",
+            "sets_reps": "4 sets x 6 reps",
+            "description": "Tight core; press bar in a straight line up.",
+            "link": "https://www.youtube.com/watch?v=2yjwViIWrbA",
+        },
+        {
+            "name": "Dumbbell Lateral Raises",
+            "sets_reps": "4 sets x 15 reps",
+            "description": "Lead with elbows; slight bend in the arms.",
+            "link": "https://www.youtube.com/watch?v=PPrchakdYTo",
+        },
+        {
+            "name": "Reverse Pec Deck",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Pull back until arms are in line with shoulders.",
+            "link": "",
+        },
+        {
+            "name": "Front Raises",
+            "sets_reps": "3 sets x 12 reps",
+            "description": "Control the weight; avoid momentum.",
+            "link": "",
+        },
+        {
+            "name": "Dumbbell Shrugs",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Hold the squeeze for 1 second at the top.",
+            "link": "",
+        },
+        {
+            "name": "Hanging Leg Raises",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Don’t swing; lift legs with your core.",
+            "link": "",
+        },
+        {
+            "name": "Plank",
+            "sets_reps": "3 sets x 1 min",
+            "description": "Squeeze glutes and abs; keep back flat.",
+            "link": "",
+        },
+    ],
+    "Thursday": [
+        {
+            "name": "Flat Bench Press",
+            "sets_reps": "4 sets x 8 reps",
+            "description": "Drive feet into the floor and keep shoulder blades retracted.",
+            "link": "https://www.youtube.com/watch?v=rT7DgCr-3pg",
+        },
+        {
+            "name": "Incline DB Press",
+            "sets_reps": "3 sets x 10 reps",
+            "description": "Press up and slightly in; control the eccentric.",
+            "link": "",
+        },
+        {
+            "name": "Chest Flys",
+            "sets_reps": "3 sets x 12 reps",
+            "description": "Keep a soft elbow bend and stretch the pecs.",
+            "link": "",
+        },
+        {
+            "name": "Dips",
+            "sets_reps": "3 sets to failure",
+            "description": "Lean forward to target the chest.",
+            "link": "",
+        },
+        {
+            "name": "Pushups",
+            "sets_reps": "3 sets x 20 reps",
+            "description": "Maintain a rigid plank; chest touches first.",
+            "link": "",
+        },
+        {
+            "name": "Machine Chest Press",
+            "sets_reps": "3 sets x 12 reps",
+            "description": "Control the tempo for a strong squeeze.",
+            "link": "",
+        },
+        {
+            "name": "Cable Cross-overs",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Bring hands together at chest height.",
+            "link": "",
+        },
+    ],
+    "Friday": [
+        {
+            "name": "Back Hypertrophy (Coming Soon)",
+            "sets_reps": "",
+            "description": "Add your preferred back hypertrophy sequence here.",
+            "link": "",
+        }
+    ],
+    "Saturday": [
+        {
+            "name": "Barbell Squats",
+            "sets_reps": "4 sets x 8 reps",
+            "description": "Brace core; drive knees out; chest up.",
+            "link": "https://www.youtube.com/watch?v=ultWZbUMBa8",
+        },
+        {
+            "name": "Romanian Deadlifts (RDLs)",
+            "sets_reps": "3 sets x 10 reps",
+            "description": "Hinge at hips; keep lats tight.",
+            "link": "",
+        },
+        {
+            "name": "Leg Press",
+            "sets_reps": "3 sets x 12 reps",
+            "description": "Feet shoulder-width; control the descent.",
+            "link": "",
+        },
+        {
+            "name": "Leg Extensions",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Squeeze quads hard at the top.",
+            "link": "",
+        },
+        {
+            "name": "Leg Curls",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Control the eccentric for hamstrings.",
+            "link": "",
+        },
+        {
+            "name": "Standing Calf Raises",
+            "sets_reps": "4 sets x 15 reps",
+            "description": "Pause at the top; full stretch at bottom.",
+            "link": "",
+        },
+        {
+            "name": "Walking Lunges",
+            "sets_reps": "3 sets x 20 steps",
+            "description": "Long stride and upright torso.",
+            "link": "",
+        },
+    ],
     "Sunday": [],
 }
 
@@ -136,21 +341,21 @@ with tab_diet:
         st.error("Water & Electrolyte Only (Meal inputs locked)")
     else:
         st.subheader("Breakfast")
-        breakfast = st.selectbox(
+        st.selectbox(
             "Choose Breakfast",
             ["Idli", "Dosa", "Poha", "Boiled Eggs"],
         )
         st.checkbox("+ Whey Protein (Breakfast)")
 
         st.subheader("Lunch")
-        lunch = st.selectbox(
+        st.selectbox(
             "Choose Lunch",
             ["Chicken Roll", "Chicken Curry/Rice"],
         )
         st.checkbox("+ Whey Protein (Lunch)")
 
         st.subheader("Dinner")
-        dinner = st.selectbox(
+        st.selectbox(
             "Choose Dinner",
             ["Rice", "Curry"],
         )
@@ -162,17 +367,20 @@ with tab_workout:
     st.header("Workout Split")
     st.write(f"Today: **{loop_day_name}**")
 
-    today_workout = SPLIT.get(loop_day_name, [])
+    today_workout = WORKOUT_DETAILS.get(loop_day_name, [])
     if not today_workout:
         st.info("Rest Day")
     else:
         st.subheader("Routine")
         for exercise in today_workout:
-            link = YOUTUBE_LINKS.get(exercise, "")
-            if link:
-                st.markdown(f"- {exercise} ([Form Guide]({link}))")
-            else:
-                st.markdown(f"- {exercise}")
+            st.markdown(f"**{exercise['name']}**")
+            if exercise["sets_reps"]:
+                st.caption(exercise["sets_reps"])
+            if exercise["description"]:
+                st.write(exercise["description"])
+            if exercise["link"]:
+                st.link_button("Watch Form", exercise["link"])
+            st.divider()
 
     st.caption("Workout Window: 8:45 PM–9:45 PM")
 
