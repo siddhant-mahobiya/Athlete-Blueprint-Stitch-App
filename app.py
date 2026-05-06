@@ -33,6 +33,7 @@ WORKOUT_START = time(20, 45)
 WORKOUT_END = time(21, 45)
 WATER_GOAL_L = 4.0
 WATER_GOAL_ML = int(WATER_GOAL_L * 1000)
+PLACEHOLDER_IMAGE_URL = "https://placehold.co/640x360?text=Exercise+Guide"
 
 WORKOUT_DETAILS = {
     "Monday": [
@@ -52,7 +53,7 @@ WORKOUT_DETAILS = {
             "name": "Single-Arm DB Rows",
             "sets_reps": "3 sets x 10 reps per side",
             "description": "One hand on bench for support. Pull DB to hip pocket.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=single+arm+dumbbell+row+form",
         },
         {
             "name": "Face Pulls",
@@ -64,19 +65,19 @@ WORKOUT_DETAILS = {
             "name": "Barbell Shrugs",
             "sets_reps": "3 sets x 12 reps",
             "description": "Straight arms; squeeze traps at the top.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=barbell+shrug+form",
         },
         {
             "name": "Hyper-extensions",
             "sets_reps": "3 sets x 15 reps",
             "description": "Slow, controlled movement to strengthen the lower back.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=back+extension+form",
         },
         {
             "name": "Dead Hangs",
             "sets_reps": "3 sets to failure",
             "description": "Hang from a pull-up bar to stretch lats and build grip.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=dead+hang+form",
         },
     ],
     "Tuesday": [
@@ -90,37 +91,37 @@ WORKOUT_DETAILS = {
             "name": "Close-Grip Bench Press",
             "sets_reps": "3 sets x 8 reps",
             "description": "Hands shoulder-width apart. Focus on tricep drive.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=close+grip+bench+press+form",
         },
         {
             "name": "Hammer Curls",
             "sets_reps": "3 sets x 12 reps",
             "description": "Neutral grip (palms facing each other).",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=hammer+curls+form",
         },
         {
             "name": "Cable Overhead Tricep Extension",
             "sets_reps": "3 sets x 12 reps",
             "description": "Use a rope. Extend fully above the head.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=overhead+tricep+extension+rope+form",
         },
         {
             "name": "Preacher Curls",
             "sets_reps": "3 sets x 12 reps",
             "description": "Prevents momentum; isolates the bicep peak.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=preacher+curl+form",
         },
         {
             "name": "Tricep Rope Pushdowns",
             "sets_reps": "3 sets x 15 reps",
             "description": "Flare the rope at the bottom for maximum contraction.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=tricep+rope+pushdown+form",
         },
         {
             "name": "Wrist Curls",
             "sets_reps": "3 sets x 15 reps",
             "description": "Use a light barbell or dumbbells to build forearms.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=wrist+curls+form",
         },
     ],
     "Wednesday": [
@@ -140,31 +141,31 @@ WORKOUT_DETAILS = {
             "name": "Reverse Pec Deck",
             "sets_reps": "3 sets x 15 reps",
             "description": "Pull back until arms are in line with shoulders.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=reverse+pec+deck+form",
         },
         {
             "name": "Front Raises",
             "sets_reps": "3 sets x 12 reps",
             "description": "Control the weight; avoid momentum.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=dumbbell+front+raise+form",
         },
         {
             "name": "Dumbbell Shrugs",
             "sets_reps": "3 sets x 15 reps",
             "description": "Hold the squeeze for 1 second at the top.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=dumbbell+shrug+form",
         },
         {
             "name": "Hanging Leg Raises",
             "sets_reps": "3 sets x 15 reps",
             "description": "Don’t swing; lift legs with your core.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=hanging+leg+raise+form",
         },
         {
             "name": "Plank",
             "sets_reps": "3 sets x 1 min",
             "description": "Squeeze glutes and abs; keep back flat.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=plank+form",
         },
     ],
     "Thursday": [
@@ -178,46 +179,88 @@ WORKOUT_DETAILS = {
             "name": "Incline DB Press",
             "sets_reps": "3 sets x 10 reps",
             "description": "Press up and slightly in; control the eccentric.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=incline+dumbbell+press+form",
         },
         {
             "name": "Chest Flys",
             "sets_reps": "3 sets x 12 reps",
             "description": "Keep a soft elbow bend and stretch the pecs.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=dumbbell+chest+fly+form",
         },
         {
             "name": "Dips",
             "sets_reps": "3 sets to failure",
             "description": "Lean forward to target the chest.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=chest+dips+form",
         },
         {
             "name": "Pushups",
             "sets_reps": "3 sets x 20 reps",
             "description": "Maintain a rigid plank; chest touches first.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=push+up+form",
         },
         {
             "name": "Machine Chest Press",
             "sets_reps": "3 sets x 12 reps",
             "description": "Control the tempo for a strong squeeze.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=machine+chest+press+form",
         },
         {
             "name": "Cable Cross-overs",
             "sets_reps": "3 sets x 15 reps",
             "description": "Bring hands together at chest height.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=cable+crossover+form",
         },
     ],
     "Friday": [
         {
-            "name": "Back Hypertrophy (Coming Soon)",
-            "sets_reps": "",
-            "description": "Add your preferred back hypertrophy sequence here.",
-            "link": "",
-        }
+            "name": "Pull-ups / Assisted Pull-ups",
+            "sets_reps": "3 sets x max reps",
+            "description": "Full hang at the bottom; drive elbows to ribs.",
+            "link": "https://www.youtube.com/results?search_query=pull+ups+form",
+        },
+        {
+            "name": "T-Bar Rows",
+            "sets_reps": "3 sets x 10 reps",
+            "description": "Chest up; pull handle toward lower ribs.",
+            "link": "https://www.youtube.com/results?search_query=t+bar+row+form",
+        },
+        {
+            "name": "Straight Arm Pulldowns",
+            "sets_reps": "3 sets x 12 reps",
+            "description": "Keep arms straight; squeeze lats at the bottom.",
+            "link": "https://www.youtube.com/results?search_query=straight+arm+pulldown+form",
+        },
+        {
+            "name": "Reverse Pec Deck",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Pull back until arms are in line with shoulders.",
+            "link": "https://www.youtube.com/results?search_query=reverse+pec+deck+form",
+        },
+        {
+            "name": "Hyperextensions",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Slow, controlled hinge to hit lower back.",
+            "link": "https://www.youtube.com/results?search_query=back+extension+form",
+        },
+        {
+            "name": "Single-Arm DB Rows",
+            "sets_reps": "3 sets x 10 reps",
+            "description": "Pull the DB to the hip pocket; avoid torso rotation.",
+            "link": "https://www.youtube.com/results?search_query=single+arm+dumbbell+row+form",
+        },
+        {
+            "name": "Reverse Flys",
+            "sets_reps": "3 sets x 15 reps",
+            "description": "Lead with elbows and squeeze rear delts.",
+            "link": "https://www.youtube.com/results?search_query=reverse+fly+form",
+        },
+        {
+            "name": "Russian Twists",
+            "sets_reps": "3 sets x 20 reps",
+            "description": "Rotate through torso; keep core braced.",
+            "link": "https://www.youtube.com/results?search_query=russian+twists+form",
+        },
     ],
     "Saturday": [
         {
@@ -230,37 +273,37 @@ WORKOUT_DETAILS = {
             "name": "Romanian Deadlifts (RDLs)",
             "sets_reps": "3 sets x 10 reps",
             "description": "Hinge at hips; keep lats tight.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=romanian+deadlift+form",
         },
         {
             "name": "Leg Press",
             "sets_reps": "3 sets x 12 reps",
             "description": "Feet shoulder-width; control the descent.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=leg+press+form",
         },
         {
             "name": "Leg Extensions",
             "sets_reps": "3 sets x 15 reps",
             "description": "Squeeze quads hard at the top.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=leg+extension+form",
         },
         {
             "name": "Leg Curls",
             "sets_reps": "3 sets x 15 reps",
             "description": "Control the eccentric for hamstrings.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=leg+curl+form",
         },
         {
             "name": "Standing Calf Raises",
             "sets_reps": "4 sets x 15 reps",
             "description": "Pause at the top; full stretch at bottom.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=standing+calf+raise+form",
         },
         {
             "name": "Walking Lunges",
             "sets_reps": "3 sets x 20 steps",
             "description": "Long stride and upright torso.",
-            "link": "",
+            "link": "https://www.youtube.com/results?search_query=walking+lunge+form",
         },
     ],
     "Sunday": [],
@@ -285,6 +328,14 @@ def loop_day(dt: datetime) -> datetime:
     if dt.time() < DAILY_LOOP_RESET:
         return dt - timedelta(days=1)
     return dt
+
+
+def get_youtube_thumbnail(link: str) -> str:
+    if "watch?v=" in link:
+        video_id = link.split("watch?v=")[-1].split("&")[0]
+        return f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg"
+    return PLACEHOLDER_IMAGE_URL
+
 
 loop_reference = loop_day(now)
 loop_day_name = loop_reference.strftime("%A")
@@ -380,6 +431,7 @@ with tab_workout:
                 st.write(exercise["description"])
             if exercise["link"]:
                 st.link_button("Watch Form", exercise["link"])
+            st.image(get_youtube_thumbnail(exercise.get("link", "")), use_column_width=True)
             st.divider()
 
     st.caption("Workout Window: 8:45 PM–9:45 PM")
