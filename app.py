@@ -36,6 +36,7 @@ WATER_GOAL_L = 4.0
 WATER_GOAL_ML = int(WATER_GOAL_L * 1000)
 PLACEHOLDER_IMAGE_URL = "https://placehold.co/640x360?text=Exercise+Guide"
 WGER_API_BASE = "https://wger.de/api/v2"
+STRENGTH_MET = 6.0
 
 WORKOUT_DETAILS = {
     "Monday": [
@@ -526,6 +527,29 @@ WORKOUT_DETAILS = {
     "Sunday": [],
 }
 
+BREAKFAST_ITEMS = {
+    "Idli": 160,
+    "Puri": 210,
+    "Dosa": 190,
+    "Bread": 140,
+    "Butter": 100,
+    "Other": 0,
+}
+LUNCH_ITEMS = {
+    "Rice + Curry": 450,
+    "Biryani": 550,
+    "Rolls": 420,
+    "Chappati": 280,
+    "Other": 0,
+}
+DINNER_ITEMS = {
+    "Eggs": 140,
+    "Curry": 220,
+    "Rice": 200,
+    "Dal": 190,
+    "Other": 0,
+}
+
 # -----------------------------
 # Session State
 # -----------------------------
@@ -586,6 +610,22 @@ def render_steps(steps: list[str]) -> None:
         st.markdown("\n".join([f"- {step}" for step in steps]))
 
 
+def parse_sets_reps(sets_reps: str) -> tuple[int, int]:
+    if not sets_reps:
+        return 0, 0
+    tokens = sets_reps.lower().replace("x", " ").replace("sets", " ").replace("reps", " ")
+    parts = [int("".join(filter(str.isdigit, part))) for part in tokens.split() if any(ch.isdigit() for ch in part)]
+    if len(parts) >= 2:
+        return parts[0], parts[1]
+    if len(parts) == 1:
+        return parts[0], 0
+    return 0, 0
+
+
+def calories_burned(weight_kg: float, minutes: float, met: float = STRENGTH_MET) -> float:
+    return met * weight_kg * minutes * 3.5 / 200
+
+
 loop_reference = loop_day(now)
 loop_day_name = loop_reference.strftime("%A")
 
@@ -640,27 +680,42 @@ with tab_diet:
     if fasting_locked:
         st.error("Water & Electrolyte Only (Meal inputs locked)")
     else:
+        total_calories = 0
+
         st.subheader("Breakfast")
-        st.selectbox(
-            "Choose Breakfast",
-            ["Idli", "Dosa", "Poha", "Boiled Eggs"],
-        )
-        st.checkbox("+ Whey Protein (Breakfast)")
+        for item, calories in BREAKFAST_ITEMS.items():
+            if st.checkbox(f"{item} ({calories} kcal)", key=f"breakfast_{item}"):
+                if item == "Other":
+                    custom_food = st.text_input("Breakfast item", key="breakfast_custom")
+                    custom_cal = st.number_input("Breakfast calories", min_value=0, step=10, key="breakfast_custom_cal")
+                    if custom_food:
+                        total_calories += custom_cal
+                else:
+                    total_calories += calories
 
         st.subheader("Lunch")
-        st.selectbox(
-            "Choose Lunch",
-            ["Chicken Roll", "Chicken Curry/Rice"],
-        )
-        st.checkbox("+ Whey Protein (Lunch)")
+        for item, calories in LUNCH_ITEMS.items():
+            if st.checkbox(f"{item} ({calories} kcal)", key=f"lunch_{item}"):
+                if item == "Other":
+                    custom_food = st.text_input("Lunch item", key="lunch_custom")
+                    custom_cal = st.number_input("Lunch calories", min_value=0, step=10, key="lunch_custom_cal")
+                    if custom_food:
+                        total_calories += custom_cal
+                else:
+                    total_calories += calories
 
         st.subheader("Dinner")
-        st.selectbox(
-            "Choose Dinner",
-            ["Rice", "Curry"],
-        )
-        st.checkbox("+ Whey Protein (Dinner)")
+        for item, calories in DINNER_ITEMS.items():
+            if st.checkbox(f"{item} ({calories} kcal)", key=f"dinner_{item}"):
+                if item == "Other":
+                    custom_food = st.text_input("Dinner item", key="dinner_custom")
+                    custom_cal = st.number_input("Dinner calories", min_value=0, step=10, key="dinner_custom_cal")
+                    if custom_food:
+                        total_calories += custom_cal
+                else:
+                    total_calories += calories
 
+        st.success(f"Total estimated calories: {int(total_calories)} kcal")
         st.button("Save Meal Log")
 
 with tab_workout:
@@ -668,17 +723,34 @@ with tab_workout:
     st.write(f"Today: **{loop_day_name}**")
 
     today_workout = WORKOUT_DETAILS.get(loop_day_name, [])
+    total_volume = 0
+
     if not today_workout:
         st.info("Rest Day")
     else:
         st.subheader("Routine")
-        for exercise in today_workout:
+        for index, exercise in enumerate(today_workout):
             st.markdown(f"**{exercise['name']}**")
             if exercise["sets_reps"]:
                 st.caption(exercise["sets_reps"])
             if exercise["description"]:
                 st.write(exercise["description"])
             render_steps(exercise.get("steps", []))
+
+            completed = st.checkbox("Done", key=f"done_{loop_day_name}_{index}")
+            sets, reps = parse_sets_reps(exercise.get("sets_reps", ""))
+            sets_value = st.number_input(
+                "Sets", min_value=0, value=sets, step=1, key=f"sets_{loop_day_name}_{index}"
+            )
+            reps_value = st.number_input(
+                "Reps", min_value=0, value=reps, step=1, key=f"reps_{loop_day_name}_{index}"
+            )
+            weight_value = st.number_input(
+                "Weight (kg)", min_value=0.0, value=0.0, step=2.5, key=f"weight_{loop_day_name}_{index}"
+            )
+            if completed and sets_value and reps_value:
+                total_volume += weight_value * sets_value * reps_value
+
             if exercise["link"]:
                 st.link_button("Watch Form", exercise["link"])
             wger_image = get_wger_image(exercise.get("name", ""))
@@ -687,6 +759,22 @@ with tab_workout:
             else:
                 st.image(get_youtube_thumbnail(exercise.get("link", "")), use_column_width=True)
             st.divider()
+
+    st.subheader("Add Exercise")
+    custom_name = st.text_input("Exercise name", key="custom_exercise_name")
+    custom_sets = st.number_input("Sets", min_value=0, step=1, key="custom_exercise_sets")
+    custom_reps = st.number_input("Reps", min_value=0, step=1, key="custom_exercise_reps")
+    custom_weight = st.number_input("Weight (kg)", min_value=0.0, step=2.5, key="custom_exercise_weight")
+    custom_done = st.checkbox("Done", key="custom_exercise_done")
+    if custom_done and custom_sets and custom_reps:
+        total_volume += custom_weight * custom_sets * custom_reps
+
+    st.subheader("Workout Summary")
+    body_weight = st.number_input("Body weight (kg)", min_value=30.0, max_value=200.0, value=75.0, step=0.5)
+    workout_minutes = st.number_input("Workout duration (minutes)", min_value=0, value=60, step=5)
+    calories = calories_burned(body_weight, workout_minutes)
+    st.success(f"Estimated calories burned: {int(calories)} kcal")
+    st.info(f"Total volume moved: {int(total_volume)} kg")
 
     st.caption("Workout Window: 8:45 PM–9:45 PM")
 
