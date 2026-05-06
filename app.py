@@ -5,6 +5,23 @@ from datetime import datetime, time, timedelta
 
 st.set_page_config(page_title="Athlete Blueprint", layout="wide")
 
+st.markdown(
+    """
+    <style>
+    [data-testid="stSidebar"] {
+        background-color: #002b36;
+    }
+    [data-testid="stSidebar"] * {
+        color: #f8f8f2;
+    }
+    [data-testid="stProgress"] > div > div {
+        background-color: #00ff00;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # -----------------------------
 # Constants
 # -----------------------------
